@@ -32,6 +32,9 @@ body {
     font-family: Arial;
     padding: 20px;
     background: #f1f1f1;
+    width: 80%;
+    margin: auto;
+
 }
 
 /* Header/Blog Title */
@@ -43,13 +46,11 @@ body {
 }
 
 .container {
-    width: 100%;
+    /*width: 80%;*/
 }
 
-/* Create two unequal columns that floats next to each other */
-/* Left column */
 .posts_wrapper {
-    width: 80%;
+    /*width: 100%;*/
     text-align: center;
     margin: auto;
 }
