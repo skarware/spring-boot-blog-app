@@ -10,9 +10,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @GetMapping("/home")
-    public String home(ModelMap model) {
-        model.addAttribute("testas", "vienas");
-        model.addAttribute("testas2", "du");
-        return "home";
+    public ModelAndView home(ModelMap model) {
+//        model.addAttribute("testas", "vienas");
+//        model.addAttribute("testas2", "du");
+//        return "home";
+//
+String testas = "laabas";
+String testas2 = "laaaaaabas";
+        ModelAndView mav = new ModelAndView("home");
+        mav.addObject(testas);
+        mav.addObject("testas2");
+
+        return mav;
     }
 }
