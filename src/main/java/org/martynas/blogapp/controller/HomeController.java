@@ -1,13 +1,23 @@
 package org.martynas.blogapp.controller;
 
+import org.martynas.blogapp.model.Post;
+import org.martynas.blogapp.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private PostService postService;
 
     @GetMapping("/home")
     public ModelAndView home(ModelMap model) {
@@ -22,5 +32,12 @@ String testas2 = "laaaaaabas";
         mav.addObject("testas2");
 
         return mav;
+    }
+
+    @GetMapping("/testas")
+    @ResponseBody
+    public String testas() {
+        Optional<Post> post = postService.getById(2L);
+        return post.get().toString();
     }
 }

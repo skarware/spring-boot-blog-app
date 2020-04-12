@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<head th:replace="/fragments/head :: head"></head>
 <body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+
+    <h1 th:text="${post.title}">Title</h1>
+    <div th:text="'Created: ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy')} + ' by '"></div>
+    <h3 th:text="${post.body}">Body</h3>
+
+
+</div>
+<footer th:replace="/fragments/footer :: footer"></footer>
 
 </body>
 </html>

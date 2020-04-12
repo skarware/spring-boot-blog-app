@@ -7,8 +7,11 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.Array;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Data
 @Entity
@@ -32,11 +35,21 @@ public class Post {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    @Column(name = "creation_date", insertable = false, nullable = false, updatable = false)
+    @Column(insertable = false, nullable = false, updatable = false)
     private Date creationDate;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
 //    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Collection<Comment> comments;
 
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", creationDate=" + creationDate +
+                ", comments=" + comments.stream().map(Comment::toString).collect(Collectors.joining(",")) +
+                '}';
+    }
 }
