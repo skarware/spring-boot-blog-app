@@ -37,7 +37,7 @@ public class Comment {
                 "id=" + id +
                 ", body='" + body + '\'' +
                 ", creationDate=" + creationDate +
-                ", post_id=" + post.getId() + // can't go for post object it self as it will make recursion and overflow a stack
+//                ", post_id=" + post.getId() + // can't go for post object it self as it will make recursion and overflow a stack
                 '}';
     }
 }

@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.martynas</groupId>
-    <artifactId>spring-mvc-blog-app</artifactId>
+    <artifactId>spring-boot-blog-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>spring-mvc-blog-app</name>
-    <description>Demo Blog app project for Spring MVC</description>
+    <name>spring-boot-blog-app</name>
+    <description>Demo Blog app project for Spring Boot and MVC fw</description>
 
     <properties>
         <java.version>1.8</java.version>

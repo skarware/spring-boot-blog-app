@@ -6,13 +6,36 @@
 <div th:replace="/fragments/header :: header"></div>
 
 <div class="container">
+    <div class="post">
+        <h2 th:text="${post.title}">Title</h2>
+        <h5 th:text="'Published on ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')}"></h5>
+        <div class="img">Image</div>
+        <p th:text="${post.body}">body text</p>
+    </div>
+    <div class="comments">
+        <h2>Comments</h2>
+        <div class="comment" th:each="comment : ${post.comments}">
+            <h5 th:text="'Commented on ' + ${#dates.format(post.creationDate, 'yyyy-MM-dd')}"></h5>
+            <p th:text="${comment.body}">Body</p>
+        </div>
+        <h2>Write new comment</h2>
+        <form action="#"
+              th:action="@{'/comment/{id}'(id=${post.id})}"
+              th:object="${comment}"
+              method="POST">
+            <label>
+                <textarea placeholder="Write something valuable"></textarea>
+                <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
+            </label>
+            <div>
+                <button type="submit" class="btn">Send</button>
+            </div>
+        </form>
 
-    <h1 th:text="${post.title}">Title</h1>
-    <div th:text="'Created: ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy')} + ' by '"></div>
-    <h3 th:text="${post.body}">Body</h3>
-
+    </div>
 
 </div>
+
 <footer th:replace="/fragments/footer :: footer"></footer>
 
 </body>
