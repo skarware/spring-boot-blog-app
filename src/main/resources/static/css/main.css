@@ -131,3 +131,13 @@ footer {
     color: white;
     margin: 15px 0;
 }
+
+a {
+    color: #336655;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #336655;
+    text-decoration: underline;
+}

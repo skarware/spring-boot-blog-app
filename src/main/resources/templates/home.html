@@ -1,31 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="/fragments/head :: head"></head>
+
 <body>
 
 <div th:replace="/fragments/header :: header"></div>
 
 <div class="container">
 
-    <p th:text="'Hello, ' + ${string} + '!'"></p>
-    <p th:text="'Hello, ' + ${string} + '!'"></p>
-
-    <!--    <div th:replace="/fragments/posts :: posts"></div>-->
-
-        <div class="posts_wrapper">
-            <div class="post">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Dec 7, 2017</h5>
-                <div class="img" style="height:200px;">Image</div>
-                <p>Some text..</p>
-            </div>
-            <div class="post">
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Sep 2, 2017</h5>
-                <div class="img" style="height:200px;">Image</div>
-                <p>Some text..</p>
-            </div>
-        </div>
+    <div th:replace="/fragments/posts :: posts(posts=${posts})"></div>
 
 </div>
 

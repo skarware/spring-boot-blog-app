@@ -4,8 +4,10 @@ import org.martynas.blogapp.model.Post;
 import org.martynas.blogapp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,20 +23,15 @@ public class HomeController {
         this.postService = postService;
     }
 
-    @GetMapping("/home")
-    public ModelAndView home(ModelMap model) {
-//        model.addAttribute("testas", "vienas");
-//        model.addAttribute("testas2", "du");
-//        return "home";
-//
-        String testas = "laabas";
-        String testas2 = "laaaaaabas";
-        ModelAndView mav = new ModelAndView("home");
-        mav.addObject(testas);
-        mav.addObject("testas2");
+    @GetMapping("/")
+    public String home(ModelMap model) {
 
-        return mav;
+        model.addAttribute("posts", postService.getAll());
+
+        return "home";
     }
+
+
 
     @GetMapping("/testas")
     @ResponseBody
