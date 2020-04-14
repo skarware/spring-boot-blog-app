@@ -18,21 +18,10 @@
             <h5 th:text="'Commented on ' + ${#dates.format(post.creationDate, 'yyyy-MM-dd')}"></h5>
             <p th:text="${comment.body}">Body</p>
         </div>
-        <h2>Write new comment</h2>
-        <form action="#"
-              th:action="@{'/comment/{id}'(id=${post.id})}"
-              th:object="${comment}"
-              method="POST">
-            <label>
-                <textarea placeholder="Write something valuable"></textarea>
-                <div th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
-            </label>
-            <div>
-                <button type="submit" class="btn">Send</button>
-            </div>
-        </form>
-
     </div>
+    <form th:action="@{'/comment/{id}'(id=${post.id})}" method="get">
+        <button type="submit">Comment</button>
+    </form>
 
 </div>
 

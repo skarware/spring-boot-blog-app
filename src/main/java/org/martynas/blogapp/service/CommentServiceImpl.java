@@ -19,4 +19,9 @@ public class CommentServiceImpl implements CommentService{
     public Comment save(Comment comment) {
         return commentRepository.saveAndFlush(comment);
     }
+
+    @Override
+    public void delete(Comment comment) {
+        commentRepository.delete(comment);
+    }
 }

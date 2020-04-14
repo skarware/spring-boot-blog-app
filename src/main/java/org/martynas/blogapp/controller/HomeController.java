@@ -27,8 +27,8 @@ public class HomeController {
 //        model.addAttribute("testas2", "du");
 //        return "home";
 //
-String testas = "laabas";
-String testas2 = "laaaaaabas";
+        String testas = "laabas";
+        String testas2 = "laaaaaabas";
         ModelAndView mav = new ModelAndView("home");
         mav.addObject(testas);
         mav.addObject("testas2");

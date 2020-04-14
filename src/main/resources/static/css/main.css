@@ -124,3 +124,10 @@ footer {
     background: #ddd;
     margin-top: 20px;
 }
+
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin: 15px 0;
+}
