@@ -26,7 +26,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(ModelMap model) {
 
-        model.addAttribute("posts", postService.getAll());
+        model.addAttribute("posts", this.postService.getAll());
 
         return "home";
     }
@@ -36,7 +36,7 @@ public class HomeController {
     @GetMapping("/testas")
     @ResponseBody
     public String testas() {
-        Optional<Post> post = postService.getById(2L);
+        Optional<Post> post = this.postService.getById(2L);
         return post.get().toString();
     }
 }

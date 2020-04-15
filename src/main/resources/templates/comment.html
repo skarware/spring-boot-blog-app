@@ -16,9 +16,6 @@
             <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
             <div class="alert" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
         </label>
-
-        <input type="hidden" th:field="*{post}"/>
-
         <div>
             <button type="submit">Send</button>
         </div>

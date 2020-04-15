@@ -22,7 +22,7 @@ public class PostController {
     @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
     public String getPost(@PathVariable Long id, Model model) {
 //        Comment comment = new Comment();
-        model.addAttribute("post", postService.getById(id).get());
+        model.addAttribute("post", this.postService.getById(id).get());
 //        model.addAttribute("comment", comment);
 
         return "post";
