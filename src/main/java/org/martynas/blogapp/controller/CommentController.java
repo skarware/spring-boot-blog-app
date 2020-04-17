@@ -35,9 +35,9 @@ public class CommentController {
             comment.setPost(postOptional.get());
             model.addAttribute(comment);
             System.err.println("GET comment: " + comment); // for testing debugging purposes
-            return "comment";
+            return "commentForm";
         } else {
-            System.err.println("GET post: " + postOptional.get()); // for testing debugging purposes
+            System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
             return "error";
         }
     }
@@ -46,12 +46,13 @@ public class CommentController {
     public String validateComment(@Valid @ModelAttribute Comment comment, BindingResult bindingResult, SessionStatus sessionStatus) {
         System.err.println("POST comment: " + comment); // for testing debugging purposes
         if (bindingResult.hasErrors()) {
-            System.err.println("Klaida");
-            return "comment";
+            System.err.println("Comment did not validate");
+            return "commentForm";
         }
         this.commentService.save(comment);
         System.err.println("SAVE comment: " + comment); // for testing debugging purposes
         sessionStatus.setComplete();
         return "redirect:/post/" + comment.getPost().getId();
     }
+
 }

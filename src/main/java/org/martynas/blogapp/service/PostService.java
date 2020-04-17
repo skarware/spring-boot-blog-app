@@ -13,8 +13,6 @@ public interface PostService {
 
     Collection<Post> getAll();
 
-    Page<Post> getAllPageable(int page);
-
     Post save(Post post);
 
     void delete(Post post);

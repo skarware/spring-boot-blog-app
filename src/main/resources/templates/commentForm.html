@@ -17,11 +17,9 @@
             <div class="alert" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
         </label>
         <div>
-            <button type="submit">Send</button>
+            <button class="green-btn" type="submit">Send</button>
         </div>
     </form>
-
-
 </div>
 
 <footer th:replace="/fragments/footer :: footer"></footer>

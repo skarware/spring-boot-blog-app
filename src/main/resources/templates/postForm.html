@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <form action="#"
+          th:action="@{'/createNewPost'}"
+          th:object="${post}"
+          method="post">
+        <h2>Write new blog post</h2>
+        <div>
+            <label>
+                <input type="text" th:field="*{title}" placeholder="Title"/>
+                <div class="alert" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+            </label>
+        </div>
+        <div>
+            <label>
+                <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
+                <div class="alert" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
+            </label>
+        </div>
+        <div>
+            <button class="green-btn" type="submit">Send</button>
+        </div>
+    </form>
+</div>
+
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>

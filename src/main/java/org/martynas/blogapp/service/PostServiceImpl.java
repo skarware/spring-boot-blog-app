@@ -34,11 +34,6 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> getAllPageable(int page) {
-        return postRepository.findAllByOrderByCreationDateDesc(PageRequest.of((page < 1) ? 0 : page - 1, POSTS_PER_PAGE));
-    }
-
-    @Override
     public Post save(Post post) {
         return postRepository.saveAndFlush(post);
     }

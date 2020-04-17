@@ -8,7 +8,7 @@
 
 /* Style the links inside the navigation bar */
 .topnav a {
-    float: right;
+    float: left;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
@@ -27,6 +27,10 @@
     background-color: #4CAF50;
     color: white;
     float: left;
+}
+
+.topnav a.right {
+    float: right;
 }
 
 body {
@@ -95,6 +99,7 @@ body {
 }
 
 .comment {
+    position: relative;
     background-color: white;
     padding: 10px 20px;
     /*margin-top: 10px;*/
@@ -106,11 +111,6 @@ body {
 form {
     margin: auto;
     width: 80%;
-}
-
-textarea {
-    height: 200px;
-    width: 100%;
 }
 
 form button {
@@ -141,4 +141,53 @@ a {
 a:hover {
     color: #336655;
     text-decoration: underline;
+}
+
+.delete {
+    background-color: #f44336;
+}
+
+.green-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.green-btn:hover {
+    background-color: #555555;
+}
+
+.red-btn {
+    background-color: #f44336;
+}
+
+.blue-btn {
+    background-color: #008CBA;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
 }
