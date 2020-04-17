@@ -191,3 +191,15 @@ textarea {
     background-color: #f8f8f8;
     resize: none;
 }
+
+.float-right {
+    float: right;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}

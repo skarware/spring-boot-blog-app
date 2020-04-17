@@ -57,4 +57,21 @@ public class PostController {
         return "redirect:/post/" + post.getId();
     }
 
+    @GetMapping("editPost/{id}")
+    public String editPost(@PathVariable Long id, Model model) {
+
+        Optional<Post> optionalPost = this.postService.getById(id);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            model.addAttribute("post", post);
+            System.err.println("editPOST post: " + post); // for testing debugging purposes
+            return "postForm";
+        }
+        System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
+        return "error";
+    }
+
+
+
 }
