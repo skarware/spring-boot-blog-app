@@ -65,13 +65,26 @@ public class PostController {
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
             model.addAttribute("post", post);
-            System.err.println("editPOST post: " + post); // for testing debugging purposes
+            System.err.println("EDIT post: " + post); // for testing debugging purposes
             return "postForm";
         }
         System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
         return "error";
     }
 
+    @GetMapping("/deletePost/{id}")
+    public String deletePost(@PathVariable Long id) {
 
+        Optional<Post> optionalPost = this.postService.getById(id);
+
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            this.postService.delete(post);
+            System.err.println("DELETE post: " + post); // for testing debugging purposes
+            return "redirect:/";
+        }
+        System.err.println("Could not find a post by id: " + id); // for testing debugging purposes
+        return "error";
+    }
 
 }

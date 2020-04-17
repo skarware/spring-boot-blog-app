@@ -113,10 +113,6 @@ form {
     width: 80%;
 }
 
-form button {
-    width: 100%;
-    height: 50px;
-}
 
 /* Footer */
 footer {
@@ -141,10 +137,6 @@ a {
 a:hover {
     color: #336655;
     text-decoration: underline;
-}
-
-.delete {
-    background-color: #f44336;
 }
 
 .green-btn {
@@ -194,6 +186,10 @@ textarea {
 
 .float-right {
     float: right;
+}
+
+.float-left {
+    float: left;
 }
 
 .align-right {
