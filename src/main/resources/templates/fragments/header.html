@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
 </head>
@@ -7,9 +9,19 @@
 <header th:fragment="header">
     <div class="topnav">
         <a class="active" th:href="@{/}">Home</a>
+        <span sec:authorize="hasRole('ROLE_USER')">
         <a class="left" th:href="@{/createNewPost}">New Post</a>
+        </span>
+        <span sec:authorize="isAuthenticated()">
+        <a class="right" th:href="@{/logout}">Logout</a>
+        </span>
+        <span sec:authorize="isAuthenticated()">
+            <a class="right">Welcome <span sec:authentication="name">name?</span></a>
+        </span>
+        <span sec:authorize="!isAuthenticated()">
         <a class="right" th:href="@{/login}">Log In</a>
         <a class="right" th:href="@{/signup}">Sign Up</a>
+        </span>
     </div>
     <div class="header">
         <h2>Cool Blog Name</h2>

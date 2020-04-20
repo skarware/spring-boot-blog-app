@@ -20,7 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable()
+        http
+                .csrf().disable()   // if enabled must use post method to logout and additional configuration needed
                 .authorizeRequests()
                 .antMatchers("/createNewPost/**", "/editPost/**", "/comment/**").hasRole("USER")
                 .antMatchers("/deletePost/**").hasRole("ADMIN")
@@ -48,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.inMemoryAuthentication()
                 .withUser("user").password(bcryptEncoder().encode("password")).roles("USER").and()
-                .withUser("admin").password(bcryptEncoder().encode("password")).roles("USER","ADMIN");
+                .withUser("admin").password(bcryptEncoder().encode("password")).roles("USER", "ADMIN");
     }
 
 }

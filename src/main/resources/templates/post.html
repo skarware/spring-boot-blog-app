@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/fragments/head :: head"></head>
 <body>
 
@@ -11,11 +13,13 @@
         <h5 th:text="'Published on ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')}"></h5>
         <div class="img">Image</div>
         <p th:text="${post.body}">body text</p>
-        <div class="align-right">
+
+        <div class="align-right" sec:authorize="hasRole('ROLE_ADMIN')">
             <a th:href="@{'/editPost/{id}'(id=${post.id})}">
                 <button class="green-btn blue-btn" type="button">Edit</button>
             </a>
         </div>
+
     </div>
     <div class="comments">
         <h2>Comments</h2>

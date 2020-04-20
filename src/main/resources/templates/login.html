@@ -9,7 +9,7 @@
 
 <div class="container">
     <div th:if="${param.error}">
-        <p class="alert-red">Invalid username and password</p>
+        <p class="alert-red">Invalid username and/or password</p>
     </div>
     <div th:if="${param.logout}">
         <p class="alert-green"> You have been successfully logged out</p>
@@ -24,7 +24,7 @@
         </div>
 
         <div>
-            <input type="submit" class="green-btn" value="Login"/>
+            <input type="submit" class="green-btn blue-btn" value="Login"/>
         </div>
 
     </form>
