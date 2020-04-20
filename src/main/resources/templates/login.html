@@ -8,6 +8,12 @@
 <div th:replace="/fragments/header :: header"></div>
 
 <div class="container">
+    <div th:if="${param.error}">
+        <p class="alert-red">Invalid username and password</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p class="alert-green"> You have been successfully logged out</p>
+    </div>
 
     <form th:action="@{/login}" method="post">
         <div>
@@ -16,12 +22,11 @@
         <div>
             <input type="password" name="password" id="password" placeholder="Password" required="true"/>
         </div>
-        <div th:if="${param.error}">
-            <div class="alert">Invalid username and password</div>
-        </div>
+
         <div>
             <input type="submit" class="green-btn" value="Login"/>
         </div>
+
     </form>
 
 </div>

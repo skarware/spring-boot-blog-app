@@ -37,6 +37,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
+                .logoutUrl("/logout") // same as default implicit configuration
+                .logoutSuccessUrl("/login?logout") // same as default implicit configuration
                 .permitAll()
                 .and().sessionManagement().maximumSessions(1);
     }

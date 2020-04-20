@@ -14,7 +14,7 @@
           method="post">
         <label>
             <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
-            <div class="alert" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
+            <div class="alert-red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
         </label>
         <div>
             <button class="green-btn" type="submit">Send</button>
