@@ -20,6 +20,11 @@ public class HomeController {
         this.postService = postService;
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @GetMapping("/")
     public String home(Model model) {
 
