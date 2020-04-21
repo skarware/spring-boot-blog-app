@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/fragments/head :: head"></head>
 <body>
 
@@ -29,7 +31,7 @@
     </form>
 </div>
 
-<div class="float-right" th:if="${post.id}">
+<div class="float-right" th:if="${post.id}" sec:authorize="hasRole('ROLE_ADMIN')">
     <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
         <button class="green-btn red-btn" type="button">Delete Post</button>
     </a>

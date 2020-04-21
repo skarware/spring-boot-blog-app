@@ -14,7 +14,7 @@
         <div class="img">Image</div>
         <p th:text="${post.body}">body text</p>
 
-        <div class="align-right" sec:authorize="hasRole('ROLE_ADMIN')">
+        <div class="align-right" sec:authorize="hasRole('ROLE_USER')">
             <a th:href="@{'/editPost/{id}'(id=${post.id})}">
                 <button class="green-btn blue-btn" type="button">Edit</button>
             </a>

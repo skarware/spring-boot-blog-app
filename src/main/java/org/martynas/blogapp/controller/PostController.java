@@ -3,6 +3,7 @@ package org.martynas.blogapp.controller;
 import org.martynas.blogapp.model.Post;
 import org.martynas.blogapp.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +38,7 @@ public class PostController {
         }
     }
 
+    @Secured("ROLE_USER")
     @GetMapping("/createNewPost")
     public String createNewPost(Model model) {
         Post post = new Post();
@@ -44,6 +46,7 @@ public class PostController {
         return "postForm";
     }
 
+    @Secured("ROLE_USER")
     @PostMapping("/createNewPost")
     public String createNewPost(@Valid @ModelAttribute Post post, BindingResult bindingResult, SessionStatus sessionStatus) {
         System.err.println("POST post: " + post); // for testing debugging purposes
@@ -57,6 +60,7 @@ public class PostController {
         return "redirect:/post/" + post.getId();
     }
 
+    @Secured("ROLE_USER")
     @GetMapping("editPost/{id}")
     public String editPost(@PathVariable Long id, Model model) {
 
@@ -72,6 +76,7 @@ public class PostController {
         return "error";
     }
 
+    @Secured("ROLE_USER")
     @GetMapping("/deletePost/{id}")
     public String deletePost(@PathVariable Long id) {
 
