@@ -38,8 +38,11 @@ public class Post {
     private Date creationDate;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-//    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private Collection<Comment> comments;
+
+    @NotNull
+    @ManyToOne
+    private BlogUser user;
 
     @Override
     public String toString() {

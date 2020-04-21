@@ -31,6 +31,10 @@ public class Comment {
     @ManyToOne
     private Post post;
 
+    @NotNull
+    @ManyToOne
+    private BlogUser user;
+
     @Override
     public String toString() {
         return "Comment{" +
