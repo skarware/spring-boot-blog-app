@@ -3,18 +3,13 @@ package org.martynas.blogapp.service;
 import org.martynas.blogapp.model.Post;
 import org.martynas.blogapp.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PostServiceImpl implements PostService {
-
-    private static final int POSTS_PER_PAGE = 3;
 
     private final PostRepository postRepository;
 
