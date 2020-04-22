@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Data
@@ -21,24 +20,26 @@ public class BlogUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq_gen")
+    @Column(name = "id")
     private Long id;
 
-    @NotNull
-    //    @Column(name = "username", nullable = false, unique = true)
     @Length(min = MIN_USERNAME_LENGTH, message = "Username must be at least " + MIN_USERNAME_LENGTH + " characters long")
-    @NotEmpty(message = "*Please provide your name")
+    @NotEmpty(message = "Please enter username")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @NotNull
-    @JsonIgnore // just in case
+    @JsonIgnore // just in case Jackson tries wants to betray us
     @Length(min = MIN_PASSWORD_LENGTH, message = "Password must be at least " + MIN_PASSWORD_LENGTH + " characters long")
     @NotEmpty(message = "Please enter the password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "user")
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Collection<Post> posts;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Collection<Authority> authorities;
 
     @Override
@@ -59,5 +60,16 @@ public class BlogUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "BlogUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+//                ", posts=" + posts +
+//                ", authorities=" + authorities +
+                '}';
     }
 }

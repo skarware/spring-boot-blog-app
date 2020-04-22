@@ -9,39 +9,40 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @Data
 @Entity
 @Table(name = "posts")
-@SequenceGenerator(name = "post_seq_gen", sequenceName = "post_seq", initialValue = 10, allocationSize=1)
+@SequenceGenerator(name = "post_seq_gen", sequenceName = "post_seq", initialValue = 10, allocationSize = 1)
 public class Post {
 
     private static final int MIN_TITLE_LENGTH = 7;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq_gen")
+    @Column(name = "id")
     private Long id;
 
-    @NotNull
     @Length(min = MIN_TITLE_LENGTH, message = "Title must be at least " + MIN_TITLE_LENGTH + " characters long")
     @NotEmpty(message = "Please enter the title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @NotEmpty
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @NotEmpty(message = "Write something for the love of Internet...")
+    @Column(name = "body", columnDefinition = "TEXT", nullable = false)
     private String body;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date", nullable = false, updatable = false)
     private Date creationDate;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<Comment> comments;
 
-    @NotNull
+    @NotNull  // it is a validation tag first but sets db to not null too
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private BlogUser user;
 
     @Override
@@ -51,7 +52,10 @@ public class Post {
                 ", title='" + title + '\'' +
                 ", body='" + body + '\'' +
                 ", creationDate=" + creationDate +
+//                ", comments=" + comments +
 //                ", comments=" + comments.stream().map(Comment::toString).collect(Collectors.joining(",")) +
+//                ", username=" + user.getUsername() +
+//                ", user=" + user + // this way it is making the inf loop
                 '}';
     }
 }

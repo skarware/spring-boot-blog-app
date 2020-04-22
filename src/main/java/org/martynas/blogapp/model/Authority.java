@@ -14,12 +14,21 @@ public class Authority implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "authority_seq_gen")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "authority", unique = true)
+    @Column(name = "authority", unique = true, nullable = false)
     private String authority;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "authorities")
+    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
     private Collection<BlogUser> users;
 
+    @Override
+    public String toString() {
+        return "Authority{" +
+                "id=" + id +
+                ", authority='" + authority + '\'' +
+//                ", users=" + users +
+                '}';
+    }
 }

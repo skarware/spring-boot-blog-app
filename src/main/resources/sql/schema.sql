@@ -9,11 +9,10 @@
 
 create table authorities
 (
-    id        bigint not null,
-    authority varchar(255),
+    id        bigint       not null,
+    authority varchar(255) not null,
     primary key (id)
 );
-
 create table comments
 (
     id            bigint    not null,
@@ -23,7 +22,6 @@ create table comments
     user_id       bigint    not null,
     primary key (id)
 );
-
 create table posts
 (
     id            bigint       not null,
@@ -33,7 +31,6 @@ create table posts
     user_id       bigint       not null,
     primary key (id)
 );
-
 create table users
 (
     id       bigint       not null,
@@ -41,15 +38,15 @@ create table users
     username varchar(255) not null,
     primary key (id)
 );
-
 create table users_authorities
 (
-    users_id       bigint not null,
-    authorities_id bigint not null
+    user_id      bigint not null,
+    authority_id bigint not null
 );
-
 alter table authorities
     add constraint UK_q0u5f2cdlshec8tlh6818bhbk unique (authority);
+alter table users
+    add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username);
 alter table comments
     add constraint FKh4c7lvsc298whoyd4w9ta25cr
         foreign key (post_id)
@@ -63,12 +60,10 @@ alter table posts
         foreign key (user_id)
             references users;
 alter table users_authorities
-    add constraint FKmfxncv8ke1jjgna64c8kclry5
-        foreign key (authorities_id)
+    add constraint FKdsfxx5g8x8mnxne1fe0yxhjhq
+        foreign key (authority_id)
             references authorities;
 alter table users_authorities
-    add constraint FK2cmfwo8tbjcpmltse0rh5ir0t
-        foreign key (users_id)
+    add constraint FKq3lq694rr66e6kpo2h84ad92q
+        foreign key (user_id)
             references users;
-
-

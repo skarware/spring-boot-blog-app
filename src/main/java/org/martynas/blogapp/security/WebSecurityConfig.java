@@ -22,6 +22,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .csrf().disable()   // if enabled must use post method to logout and additional configuration needed
+                .headers().frameOptions().disable() // fix H2 console access
+                .and()
                 .authorizeRequests()
                 .antMatchers("/createNewPost/**", "/editPost/**", "/comment/**").hasRole("USER")
                 .antMatchers("/deletePost/**").hasRole("ADMIN")

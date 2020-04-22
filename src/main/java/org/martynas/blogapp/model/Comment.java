@@ -16,10 +16,11 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "comment_seq_gen")
+    @Column(name = "id")
     private Long id;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    @NotEmpty(message = "Comment body can not be empty! Write something sane for the love of god, would you?")
+    @NotEmpty(message = "Comment body can not be empty! Write something sane for the love of Internet, would you?")
     private String body;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -29,10 +30,12 @@ public class Comment {
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private Post post;
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private BlogUser user;
 
     @Override
@@ -41,7 +44,8 @@ public class Comment {
                 "id=" + id +
                 ", body='" + body + '\'' +
                 ", creationDate=" + creationDate +
-                ", post_id=" + post.getId() + // can't go for post object it self as it will make recursion and overflow a stack
+//                ", post_id=" + post.getId() + // can't go for post object it self as it will make recursion and overflow a stack
+//                ", username=" + user.getUsername() +
                 '}';
     }
 }
