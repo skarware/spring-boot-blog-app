@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import javax.management.relation.RoleNotFoundException;
 import java.util.Optional;
 
-public interface BlogUserSevice extends UserDetailsService {
+public interface BlogUserService extends UserDetailsService {
 
     Optional<BlogUser> findByUsername(String username);
 

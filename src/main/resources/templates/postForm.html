@@ -15,27 +15,27 @@
         <h2>Write new blog post</h2>
         <div>
             <label>
-                <input type="text" th:field="*{title}" placeholder="Title"/>
                 <div class="alert-red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</div>
+                <input type="text" th:field="*{title}" placeholder="Title"/>
             </label>
         </div>
         <div>
             <label>
-                <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
                 <div class="alert-red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
+                <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
             </label>
         </div>
         <div class="float-left">
             <button class="green-btn" type="submit">Send</button>
         </div>
     </form>
+    <div class="float-right" th:if="${post.id}" sec:authorize="hasRole('ROLE_ADMIN')">
+        <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
+            <button class="green-btn red-btn" type="button">Delete Post</button>
+        </a>
+    </div>
 </div>
 
-<div class="float-right" th:if="${post.id}" sec:authorize="hasRole('ROLE_ADMIN')">
-    <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
-        <button class="green-btn red-btn" type="button">Delete Post</button>
-    </a>
-</div>
 
 <footer th:replace="/fragments/footer :: footer"></footer>
 

@@ -5,10 +5,8 @@ import org.martynas.blogapp.model.BlogUser;
 import org.martynas.blogapp.repository.AuthorityRepository;
 import org.martynas.blogapp.repository.BlogUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.config.authentication.PasswordEncoderParser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +16,16 @@ import java.util.Collections;
 import java.util.Optional;
 
 @Service
-public class BlogUserSeviceImpl implements BlogUserSevice {
+public class BlogUserServiceImpl implements BlogUserService {
 
     private static final String DEFAULT_ROLE = "ROLE_USER";
+    private final PasswordEncoder bcryptEncoder;
     private final BlogUserRepository blogUserRepository;
     private final AuthorityRepository authorityRepository;
 
     @Autowired
-    public BlogUserSeviceImpl(BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
+    public BlogUserServiceImpl(PasswordEncoder bcryptEncoder, BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
+        this.bcryptEncoder = bcryptEncoder;
         this.blogUserRepository = blogUserRepository;
         this.authorityRepository = authorityRepository;
     }
@@ -48,16 +48,24 @@ public class BlogUserSeviceImpl implements BlogUserSevice {
 
     @Override
     public BlogUser saveNewBlogUser(BlogUser blogUser) throws RoleNotFoundException {
-        // Encode plaintext password with bcrypt password encoder
-//        blogUser.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(blogUser.getPassword()));
+
+        System.err.println("saveNewBlogUser: " + blogUser);  // for testing debugging purposes
+
+        // Encode plaintext password with password encoder
+//        blogUser.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(blogUser.getPassword()).substring(8));
+        blogUser.setPassword(this.bcryptEncoder.encode(blogUser.getPassword()));
+
+
         // Set default Authority/Role to new blog user
-        Optional<Authority> optionalAuthority = authorityRepository.findByAuthority(DEFAULT_ROLE);
+        Optional<Authority> optionalAuthority = this.authorityRepository.findByAuthority(DEFAULT_ROLE);
+        System.err.println("optionalAuthority: " + optionalAuthority);  // for testing debugging purposes
         if (optionalAuthority.isPresent()) {
             Authority authority = optionalAuthority.get();
             Collection<Authority> authorities = Collections.singletonList(authority);
             blogUser.setAuthorities(authorities);
+        System.err.println("blogUser after Roles: " + blogUser);  // for testing debugging purposes
 //            return blogUserRepository.save(blogUser);
-            return blogUserRepository.saveAndFlush(blogUser);
+            return this.blogUserRepository.saveAndFlush(blogUser);
         } else {
             throw new RoleNotFoundException("Default role not found for blog user with username " + blogUser.getUsername());
         }

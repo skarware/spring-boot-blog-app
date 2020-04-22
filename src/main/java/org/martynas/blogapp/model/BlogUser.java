@@ -38,7 +38,9 @@ public class BlogUser implements UserDetails {
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Collection<Post> posts;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+//    @ManyToMany(cascade = CascadeType.ALL)    // dos not work
+//    @ManyToMany(cascade = CascadeType.REMOVE) // works
+    @ManyToMany //works
     @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Collection<Authority> authorities;
 
@@ -69,7 +71,7 @@ public class BlogUser implements UserDetails {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
 //                ", posts=" + posts +
-//                ", authorities=" + authorities +
+                ", authorities=" + authorities +
                 '}';
     }
 }
