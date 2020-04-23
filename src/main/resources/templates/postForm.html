@@ -29,7 +29,7 @@
             <button class="green-btn" type="submit">Send</button>
         </div>
     </form>
-    <div class="float-right" th:if="${post.id}" sec:authorize="hasRole('ROLE_ADMIN')">
+    <div class="float-right" th:if="${post.id}">
         <a th:href="@{'/deletePost/{id}'(id=${post.id})}">
             <button class="green-btn red-btn" type="button">Delete Post</button>
         </a>

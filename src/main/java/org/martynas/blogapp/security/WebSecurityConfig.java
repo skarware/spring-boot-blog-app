@@ -39,8 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() // fix H2 console access
                 .and()
                 .authorizeRequests()
+//                .antMatchers("/createNewPost/**", "/editPost/**").hasRole("USER")
                 .antMatchers("/createNewPost/**", "/editPost/**", "/comment/**").hasRole("USER")
-                .antMatchers("/deletePost/**").hasRole("ADMIN")
+                .antMatchers("/deletePost/**").hasRole("USER")
+//                .antMatchers("/deletePost/**").hasRole("ADMIN")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

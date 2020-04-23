@@ -37,10 +37,10 @@ public class Post {
     @Column(name = "creation_date", nullable = false, updatable = false)
     private Date creationDate;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Collection<Comment> comments;
 
-    @NotNull  // it is a validation tag first but sets db to not null too
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private BlogUser user;

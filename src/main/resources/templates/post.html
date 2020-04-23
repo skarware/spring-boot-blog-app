@@ -10,29 +10,27 @@
 <div class="container">
     <div class="post">
         <h2 th:text="${post.title}">Title</h2>
-        <h5 th:text="'Published on ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')}"></h5>
+        <h5 th:text="'Published on ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')} + ' by ' + ${post.user.username}">Creation date and by whom</h5>
         <div class="img">Image</div>
         <p th:text="${post.body}">body text</p>
-
-        <div class="align-right" sec:authorize="hasRole('ROLE_USER')">
+        <div class="align-right" sec:authorize="isAuthenticated()" th:if="${isOwner}">
             <a th:href="@{'/editPost/{id}'(id=${post.id})}">
                 <button class="green-btn blue-btn" type="button">Edit</button>
             </a>
         </div>
-
     </div>
     <div class="comments">
         <h2>Comments</h2>
         <div class="comment" th:each="comment : ${post.comments}">
-            <h5 th:text="'Commented on ' + ${#dates.format(post.creationDate, 'yyyy-MM-dd')}"></h5>
+            <h5 th:text="'Commented on ' + ${#dates.format(post.creationDate, 'yyyy-MM-dd')} + ' by ' + ${comment.user.username}">Comment date and by whom</h5>
             <p th:text="${comment.body}">Body</p>
         </div>
     </div>
-</div>
-<div class="align-center">
-    <a th:href="@{'/comment/{id}'(id=${post.id})}">
-        <button class="green-btn" type="button">Comment Post</button>
-    </a>
+    <div class="align-center">
+        <a th:href="@{'/comment/{id}'(id=${post.id})}">
+            <button class="green-btn" type="button">Comment Post</button>
+        </a>
+    </div>
 </div>
 
 <footer th:replace="/fragments/footer :: footer"></footer>
