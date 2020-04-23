@@ -34,13 +34,16 @@ public class BlogUser implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled;
+
     @OneToMany(mappedBy = "user")
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Collection<Post> posts;
 
 //    @ManyToMany(cascade = CascadeType.ALL)    // dos not work
 //    @ManyToMany(cascade = CascadeType.REMOVE) // works
-    @ManyToMany //works
+    @ManyToMany // works
     @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Collection<Authority> authorities;
 
@@ -61,7 +64,7 @@ public class BlogUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 
     @Override

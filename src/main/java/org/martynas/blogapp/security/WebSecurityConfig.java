@@ -7,13 +7,27 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final DataSource dataSource;
+    private static final String USERS_SQL_QUERY = "select username,password,enabled from users where username = ?";
+    private static final String AUTHORITIES_SQL_QUERY = "select users.username, authorities.authority\n" +
+                                                        "from users\n" +
+                                                                "inner join users_authorities on (users.id = users_authorities.user_id)\n" +
+                                                                "inner join authorities on (users_authorities.authority_id = authorities.id)\n" +
+                                                        "where users.username = ?;";
+
+    @Autowired
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
-    public PasswordEncoder bcryptEncoder() {
+    public BCryptPasswordEncoder bcryptEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -47,12 +61,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password(bcryptEncoder().encode("password")).roles("USER").and()
-                .withUser("admin").password(bcryptEncoder().encode("password")).roles("USER", "ADMIN");
+        authenticationManagerBuilder
+                .jdbcAuthentication()
+                .usersByUsernameQuery(USERS_SQL_QUERY) // not really necessary, as users table follows default Spring Security User schema
+                .authoritiesByUsernameQuery(AUTHORITIES_SQL_QUERY)  // a must as using customized authorities table, many to many variation
+                .dataSource(dataSource)
+                .passwordEncoder(bcryptEncoder());
+
+//        authenticationManagerBuilder
+//                .inMemoryAuthentication()
+//                .withUser("user").password(bcryptEncoder().encode("password")).roles("USER").and()
+//                .withUser("admin").password(bcryptEncoder().encode("password")).roles("USER", "ADMIN");
     }
 
 }

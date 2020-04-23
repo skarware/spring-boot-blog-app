@@ -36,6 +36,7 @@ create table users
     id       bigint       not null,
     password varchar(255) not null,
     username varchar(255) not null,
+    enabled  boolean      not null,
     primary key (id)
 );
 create table users_authorities

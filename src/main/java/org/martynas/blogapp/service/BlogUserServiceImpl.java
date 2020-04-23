@@ -7,7 +7,8 @@ import org.martynas.blogapp.repository.BlogUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
 
 import javax.management.relation.RoleNotFoundException;
@@ -19,12 +20,12 @@ import java.util.Optional;
 public class BlogUserServiceImpl implements BlogUserService {
 
     private static final String DEFAULT_ROLE = "ROLE_USER";
-    private final PasswordEncoder bcryptEncoder;
+    private final BCryptPasswordEncoder bcryptEncoder;
     private final BlogUserRepository blogUserRepository;
     private final AuthorityRepository authorityRepository;
 
     @Autowired
-    public BlogUserServiceImpl(PasswordEncoder bcryptEncoder, BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
+    public BlogUserServiceImpl(BCryptPasswordEncoder bcryptEncoder, BlogUserRepository blogUserRepository, AuthorityRepository authorityRepository) {
         this.bcryptEncoder = bcryptEncoder;
         this.blogUserRepository = blogUserRepository;
         this.authorityRepository = authorityRepository;
@@ -48,14 +49,12 @@ public class BlogUserServiceImpl implements BlogUserService {
 
     @Override
     public BlogUser saveNewBlogUser(BlogUser blogUser) throws RoleNotFoundException {
-
         System.err.println("saveNewBlogUser: " + blogUser);  // for testing debugging purposes
-
         // Encode plaintext password with password encoder
 //        blogUser.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(blogUser.getPassword()).substring(8));
-        blogUser.setPassword(this.bcryptEncoder.encode(blogUser.getPassword()));
-
-
+        blogUser.setPassword(this.bcryptEncoder.encode(blogUser.getPassword())); // explicit bcrypt encoder so better approach ?
+        // set account to enabled by default
+        blogUser.setEnabled(true);
         // Set default Authority/Role to new blog user
         Optional<Authority> optionalAuthority = this.authorityRepository.findByAuthority(DEFAULT_ROLE);
         System.err.println("optionalAuthority: " + optionalAuthority);  // for testing debugging purposes
