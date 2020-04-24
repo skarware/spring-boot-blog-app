@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -30,9 +31,18 @@ public class PostController {
     }
 
     @GetMapping("/post/{id}")
-    public String getPost(@PathVariable Long id, Model model) {
-        // get username of current logged in session user
-        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+    public String getPost(@PathVariable Long id, Model model, Principal principal) {
+
+        // Just curious  what if we get username from Principal instead of SecurityContext
+        String authUsername = "anonymousUser";
+        if (principal != null) {
+            authUsername = principal.getName();
+        }
+        // the end of curiosity //
+
+//        // get username of current logged in session user
+//        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
         // find post by id
         Optional<Post> optionalPost = this.postService.getById(id);
         // if post exist put it in model
@@ -51,9 +61,18 @@ public class PostController {
 
     @Secured("ROLE_USER")
     @GetMapping("/createNewPost")
-    public String createNewPost(Model model) {
-        // get username of current logged in session user
-        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+    public String createNewPost(Model model, Principal principal) {
+
+        // Just curious  what if we get username from Principal instead of SecurityContext
+        String authUsername = "anonymousUser";
+        if (principal != null) {
+            authUsername = principal.getName();
+        }
+        // the end of curiosity //
+
+//        // get username of current logged in session user
+//        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
         // find user by username
         Optional<BlogUser> optionalBlogUser = this.blogUserService.findByUsername(authUsername);
         // set user to post and put former in model
@@ -84,9 +103,17 @@ public class PostController {
 
     @Secured("ROLE_USER")
     @GetMapping("editPost/{id}")
-    public String editPost(@PathVariable Long id, Model model) {
-        // get username of current logged in session user
-        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+    public String editPost(@PathVariable Long id, Model model, Principal principal) {
+        // Just curious  what if we get username from Principal instead of SecurityContext
+        String authUsername = "anonymousUser";
+        if (principal != null) {
+            authUsername = principal.getName();
+        }
+        // the end of curiosity //
+
+//        // get username of current logged in session user
+//        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
         // find post by id
         Optional<Post> optionalPost = this.postService.getById(id);
         // Check if current logged in user is an owner and so has the right for modifications to happen
@@ -109,9 +136,18 @@ public class PostController {
 
     @Secured("ROLE_USER")
     @GetMapping("/deletePost/{id}")
-    public String deletePost(@PathVariable Long id) {
-        // get username of current logged in session user
-        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+    public String deletePost(@PathVariable Long id, Principal principal) {
+
+        // Just curious  what if we get username from Principal instead of SecurityContext
+        String authUsername = "anonymousUser";
+        if (principal != null) {
+            authUsername = principal.getName();
+        }
+        // the end of curiosity //
+
+//        // get username of current logged in session user
+//        String authUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
         // find post by id
         Optional<Post> optionalPost = this.postService.getById(id);
         // Check if current logged in user is an owner and so has the right for modifications to happen
