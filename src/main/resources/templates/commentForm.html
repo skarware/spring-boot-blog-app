@@ -8,13 +8,14 @@
 <div class="container">
 
     <h2>Write new comment</h2>
+    
     <form action="#"
           th:action="@{'/comment'}"
           th:object="${comment}"
           method="post">
         <label>
-            <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
             <div class="alert-red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Body Error</div>
+            <textarea th:field="*{body}" placeholder="Write something valuable"></textarea>
         </label>
         <div>
             <button class="green-btn" type="submit">Send</button>
