@@ -16,10 +16,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final DataSource dataSource;
     private static final String USERS_SQL_QUERY = "select username,password,enabled from users where username = ?";
     private static final String AUTHORITIES_SQL_QUERY = "select users.username, authorities.authority\n" +
-                                                        "from users\n" +
-                                                                "inner join users_authorities on (users.id = users_authorities.user_id)\n" +
-                                                                "inner join authorities on (users_authorities.authority_id = authorities.id)\n" +
-                                                        "where users.username = ?;";
+            "from users\n" +
+            "inner join users_authorities on (users.id = users_authorities.user_id)\n" +
+            "inner join authorities on (users_authorities.authority_id = authorities.id)\n" +
+            "where users.username = ?;";
 
     @Autowired
     public WebSecurityConfig(DataSource dataSource) {
@@ -46,20 +46,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login") // same as default implicit configuration
-                .usernameParameter("username") // same as default implicit configuration
-                .passwordParameter("password") // same as default implicit configuration
-                .defaultSuccessUrl("/")
-                .failureUrl("/login?error") // same as default implicit configuration
+                .formLogin().loginPage("/login").loginProcessingUrl("/login") // same as default implicit configuration
+                .usernameParameter("username").passwordParameter("password") // same as default implicit configuration
+                .defaultSuccessUrl("/").failureUrl("/login?error") // same as default implicit configuration
                 .permitAll()
                 .and()
-                .logout()
-                .logoutUrl("/logout") // same as default implicit configuration
-                .logoutSuccessUrl("/login?logout") // same as default implicit configuration
+                .rememberMe().rememberMeParameter("remember-me")
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout") // same as default implicit configuration
                 .permitAll()
-                .and().sessionManagement().maximumSessions(1);
+                .and()
+                .sessionManagement().maximumSessions(1);
     }
 
     @Autowired
