@@ -46,7 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").loginProcessingUrl("/login") // same as default implicit configuration
+                .formLogin()
+                .loginPage("/login").loginProcessingUrl("/login") // same as default implicit configuration
                 .usernameParameter("username").passwordParameter("password") // same as default implicit configuration
                 .defaultSuccessUrl("/").failureUrl("/login?error") // same as default implicit configuration
                 .permitAll()

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+
+
+    <div class="list-group">
+        <div class="alert-red"><h3 th:text="${error}">Status</h3></div>
+        <div class="alert-red" th:text="'Status code: '+ ${status}"></div>
+    </div>
+
+</div>
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>
