@@ -38,12 +38,9 @@ public class BlogUser implements UserDetails {
     private Boolean enabled;
 
     @OneToMany(mappedBy = "user")
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Collection<Post> posts;
 
-//    @ManyToMany(cascade = CascadeType.ALL)    // dos not work
-//    @ManyToMany(cascade = CascadeType.REMOVE) // works
-    @ManyToMany // works
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
     private Collection<Authority> authorities;
 

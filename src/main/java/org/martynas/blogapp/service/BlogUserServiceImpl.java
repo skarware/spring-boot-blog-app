@@ -62,7 +62,7 @@ public class BlogUserServiceImpl implements BlogUserService {
             Authority authority = optionalAuthority.get();
             Collection<Authority> authorities = Collections.singletonList(authority);
             blogUser.setAuthorities(authorities);
-        System.err.println("blogUser after Roles: " + blogUser);  // for testing debugging purposes
+            System.err.println("blogUser after Roles: " + blogUser);  // for testing debugging purposes
 //            return blogUserRepository.save(blogUser);
             return this.blogUserRepository.saveAndFlush(blogUser);
         } else {
