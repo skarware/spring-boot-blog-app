@@ -41,7 +41,11 @@ public class BlogUser implements UserDetails {
     private Collection<Post> posts;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
-    @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    @JoinTable(
+            name = "users_authorities",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id")
+    )
     private Collection<Authority> authorities;
 
     @Override
