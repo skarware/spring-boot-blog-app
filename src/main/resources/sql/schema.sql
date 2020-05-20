@@ -45,6 +45,7 @@ create table users_authorities
 (
     user_id      bigint not null,
     authority_id bigint not null,
+    primary key (user_id, authority_id),
     constraint FKdsfxx5g8x8mnxne1fe0yxhjhq
         foreign key (authority_id)
         references authorities,
