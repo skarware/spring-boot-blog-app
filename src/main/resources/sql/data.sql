@@ -1,6 +1,3 @@
--- insert into TESTAS (NAME, NUMERIS, INFO)
--- VALUES ('ssss', 5, 'sdasda');
-
 insert into USERS (ID, PASSWORD, USERNAME, ENABLED)
 VALUES (0, '', 'anonymous', true);
 insert into USERS (ID, PASSWORD, USERNAME, ENABLED)
