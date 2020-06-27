@@ -1,5 +1,7 @@
 # Blogging platform (made with Spring Boot)
-##### Simple blogging platform project I made as started to learn Spring framework.
+#### Simple blogging platform project I made as started to learn Spring framework.
+## Live Demo (runs on FreeBSD 12)
+https://tomcat.skaringa.dev/spring-blog-app/
 
 ## About the project
 Application made using:\
