@@ -5,8 +5,8 @@ https://tomcat.skaringa.dev/spring-blog-app/
 
 ## About the project
 Application made using:\
- <i><b>Java 8,\
-  Spring Boot v2.2.6,\
+ <i><b>Java 11,\
+  Spring Boot v2.3.10,\
    Spring Web,\
     Spring Data JPA,\
      Spring Security,\
